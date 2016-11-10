@@ -21,4 +21,16 @@ public class UserMealWithExceed {
         this.calories = calories;
         this.exceed = exceed;
     }
+
+    public UserMealWithExceed(UserMeal userMeal, boolean exceed) {
+        this(userMeal.getDateTime(), userMeal.getDescription(), userMeal.getCalories(), exceed);
+    }
+
+    @Override
+    public String toString() {
+        return "Meal [dateTime=" + dateTime +
+                ", description=" + description +
+                ", calories=" + calories +
+                ", exceed=" + exceed + "]";
+    }
 }
