@@ -4,7 +4,7 @@
 
 <html>
 <head>
-    <title>Meal list</title>
+    <title>Список еды</title>
 
     <style>
         tr.green {
@@ -19,18 +19,32 @@
 
 
 <body>
-<h2><a href="index.html">Home</a></h2>
-<h2>Meal list</h2>
+<h2>Список еды</h2>
 
-<table>
-    <c:forEach var="m" items="${mealsAttribute}">
+<table border="1">
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>Время</th>
+        <th>Описание</th>
+        <th>Калории</th>
+        <th colspan=2></th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach var="m" items="${meals}">
         <tr class="${m.exceed ? 'red' : 'green'}">
+            <td>${m.id}</td>
             <td>${f:formatLocalDateTime(m.dateTime, 'yyyy-MM-dd kk:mm')}</td>
             <td>${m.description}</td>
             <td>${m.calories}</td>
+            <td><a href="meals?action=edit&id=<c:out value="${m.id}"/>">Обновить</a></td>
+            <td><a href="meals?action=delete&id=<c:out value="${m.id}"/>">Удалить</a></td>
         </tr>
     </c:forEach>
+    </tbody>
 </table>
+<p><a href="meals?action=insert">Добавить еду</a></p>
 
 </body>
 </html>

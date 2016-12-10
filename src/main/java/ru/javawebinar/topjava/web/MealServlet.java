@@ -2,8 +2,9 @@ package ru.javawebinar.topjava.web;
 
 import org.slf4j.Logger;
 import ru.javawebinar.topjava.dao.MealDao;
-import ru.javawebinar.topjava.dao.MealDaoMemoryImpl;
+import ru.javawebinar.topjava.dao.MealDaoMemory;
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.util.MealsUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -27,26 +29,30 @@ public class MealServlet extends HttpServlet {
 
     public MealServlet() {
         super();
-        dao = new MealDaoMemoryImpl();
+        dao = new MealDaoMemory();
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String forward="";
+        String forward = "";
         String action = request.getParameter("action");
 
-        if (action.equalsIgnoreCase("delete")){
+        if ("delete".equalsIgnoreCase(action)){
             int id = Integer.parseInt(request.getParameter("id"));
             dao.delete(id);
             forward = LIST_MEAL;
-            request.setAttribute("meals", dao.getAll());
-        } else if (action.equalsIgnoreCase("edit")){
+            request.setAttribute("meals", MealsUtil.getFilteredWithExceeded(dao.getAll(), LocalTime.MIN, LocalTime.MAX, 2000));
+        } else if ("insert".equalsIgnoreCase(action)){
+            forward = INSERT_OR_EDIT;
+            Meal meal = new Meal(LocalDateTime.now(), "", 0);
+            request.setAttribute("meal", meal);
+        } else if ("edit".equalsIgnoreCase(action)){
             forward = INSERT_OR_EDIT;
             int id = Integer.parseInt(request.getParameter("id"));
             Meal meal = dao.getById(id);
             request.setAttribute("meal", meal);
-        } else if (action.equalsIgnoreCase("listUser")){
+        } else if ("listMeal".equalsIgnoreCase(action)){
             forward = LIST_MEAL;
-            request.setAttribute("meals", dao.getAll());
+            request.setAttribute("meals", MealsUtil.getFilteredWithExceeded(dao.getAll(), LocalTime.MIN, LocalTime.MAX, 2000));
         } else {
             forward = INSERT_OR_EDIT;
         }
@@ -57,6 +63,7 @@ public class MealServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd kk:mm");
         LocalDateTime dateTime = LocalDateTime.parse(request.getParameter("dateTime"), formatter);
         String description = request.getParameter("description");
@@ -72,7 +79,7 @@ public class MealServlet extends HttpServlet {
             dao.update(meal);
         }
 
-        request.setAttribute("meals", dao.getAll());
+        request.setAttribute("meals", MealsUtil.getFilteredWithExceeded(dao.getAll(), LocalTime.MIN, LocalTime.MAX, 2000));
 
         LOG.debug("redirect to " + LIST_MEAL);
 
