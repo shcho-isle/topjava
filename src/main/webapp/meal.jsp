@@ -10,13 +10,13 @@
 
 <form method="POST" action='' name="frmAddMeal">
     Время : <input
-        type="text" name="dateTime"
-        value="<c:out value="${f:formatLocalDateTime(meal.dateTime, 'yyyy-MM-dd kk:mm')}" />" /> <br />
+        type="datetime-local" name="dateTime"
+        value="<c:out value="${meal.dateTime}" />" /> <br />
     Описание : <input
         type="text" name="description"
         value="<c:out value="${meal.description}" />" /> <br />
     Калории : <input
-        type="text" name="calories"
+        type="number" name="calories"
         value="<c:out value="${meal.calories}" />" /> <br /> <input
         type="submit" value="Сохранить" />
 </form>

@@ -15,6 +15,7 @@ public class MealDaoMemory implements MealDao {
     public MealDaoMemory() {
         count = new AtomicInteger(0);
         meals = new CopyOnWriteArrayList<>();
+
         add(new Meal(LocalDateTime.of(2015, Month.MAY, 30, 10, 0), "Завтрак", 500));
         add(new Meal(LocalDateTime.of(2015, Month.MAY, 30, 13, 0), "Обед", 1000));
         add(new Meal(LocalDateTime.of(2015, Month.MAY, 30, 20, 0), "Ужин", 500));

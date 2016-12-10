@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
@@ -43,7 +42,7 @@ public class MealServlet extends HttpServlet {
             request.setAttribute("meals", MealsUtil.getFilteredWithExceeded(dao.getAll(), LocalTime.MIN, LocalTime.MAX, 2000));
         } else if ("insert".equalsIgnoreCase(action)){
             forward = INSERT_OR_EDIT;
-            Meal meal = new Meal(LocalDateTime.now(), "", 0);
+            Meal meal = new Meal(LocalDateTime.now().withNano(0).withSecond(0), "", 0);
             request.setAttribute("meal", meal);
         } else if ("edit".equalsIgnoreCase(action)){
             forward = INSERT_OR_EDIT;
@@ -64,8 +63,7 @@ public class MealServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd kk:mm");
-        LocalDateTime dateTime = LocalDateTime.parse(request.getParameter("dateTime"), formatter);
+        LocalDateTime dateTime = LocalDateTime.parse(request.getParameter("dateTime"));
         String description = request.getParameter("description");
         int calories = Integer.parseInt(request.getParameter("calories"));
 
