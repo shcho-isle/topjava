@@ -10,6 +10,7 @@
         tr.green {
             color: green;
         }
+
         tr.red {
             color: red;
         }
@@ -35,7 +36,7 @@
     <c:forEach var="m" items="${meals}">
         <tr class="${m.exceed ? 'red' : 'green'}">
             <td>${m.id}</td>
-            <td>${f:formatLocalDateTime(m.dateTime, 'yyyy-MM-dd kk:mm')}</td>
+            <td>${f:formatLocalDateTime(m.dateTime)}</td>
             <td>${m.description}</td>
             <td>${m.calories}</td>
             <td><a href="meals?action=edit&id=<c:out value="${m.id}"/>">Обновить</a></td>

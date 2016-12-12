@@ -16,7 +16,7 @@ public class MealDaoMemory implements MealDao {
         count = new AtomicInteger(0);
         meals = new CopyOnWriteArrayList<>();
 
-        add(new Meal(LocalDateTime.of(2015, Month.MAY, 30, 10, 0), "Завтрак", 500));
+        add(new Meal(LocalDateTime.of(2215, Month.MAY, 30, 10, 0), "Завтрак", 500));
         add(new Meal(LocalDateTime.of(2015, Month.MAY, 30, 13, 0), "Обед", 1000));
         add(new Meal(LocalDateTime.of(2015, Month.MAY, 30, 20, 0), "Ужин", 500));
         add(new Meal(LocalDateTime.of(2015, Month.MAY, 31, 10, 0), "Завтрак", 1000));
@@ -32,7 +32,7 @@ public class MealDaoMemory implements MealDao {
 
     @Override
     public void delete(int id) {
-        for (Meal meal: meals)
+        for (Meal meal : meals)
             if (meal.getId() == id) {
                 meals.remove(meal);
                 break;
@@ -57,7 +57,7 @@ public class MealDaoMemory implements MealDao {
 
     @Override
     public Meal getById(int id) {
-        for (Meal meal: meals)
+        for (Meal meal : meals)
             if (meal.getId() == id)
                 return meal;
 

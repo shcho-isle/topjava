@@ -35,21 +35,21 @@ public class MealServlet extends HttpServlet {
         String forward = "";
         String action = request.getParameter("action");
 
-        if ("delete".equalsIgnoreCase(action)){
+        if ("delete".equalsIgnoreCase(action)) {
             int id = Integer.parseInt(request.getParameter("id"));
             dao.delete(id);
             forward = LIST_MEAL;
             request.setAttribute("meals", MealsUtil.getFilteredWithExceeded(dao.getAll(), LocalTime.MIN, LocalTime.MAX, 2000));
-        } else if ("insert".equalsIgnoreCase(action)){
+        } else if ("insert".equalsIgnoreCase(action)) {
             forward = INSERT_OR_EDIT;
             Meal meal = new Meal(LocalDateTime.now().withNano(0).withSecond(0), "", 0);
             request.setAttribute("meal", meal);
-        } else if ("edit".equalsIgnoreCase(action)){
+        } else if ("edit".equalsIgnoreCase(action)) {
             forward = INSERT_OR_EDIT;
             int id = Integer.parseInt(request.getParameter("id"));
             Meal meal = dao.getById(id);
             request.setAttribute("meal", meal);
-        } else if ("listMeal".equalsIgnoreCase(action)){
+        } else if ("listMeal".equalsIgnoreCase(action)) {
             forward = LIST_MEAL;
             request.setAttribute("meals", MealsUtil.getFilteredWithExceeded(dao.getAll(), LocalTime.MIN, LocalTime.MAX, 2000));
         } else {
@@ -57,9 +57,10 @@ public class MealServlet extends HttpServlet {
         }
 
         LOG.debug("redirect to " + forward);
+        System.out.println(response.getClass());
 
         request.getRequestDispatcher(forward).forward(request, response);
-    }
+     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -70,7 +71,7 @@ public class MealServlet extends HttpServlet {
         Meal meal = new Meal(dateTime, description, calories);
 
         String id = request.getParameter("id");
-        if(id == null || id.isEmpty()) {
+        if (id == null || id.isEmpty()) {
             dao.add(meal);
         } else {
             meal.setId(Integer.parseInt(id));
