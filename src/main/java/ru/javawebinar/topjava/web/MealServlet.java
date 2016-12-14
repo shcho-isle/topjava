@@ -57,10 +57,9 @@ public class MealServlet extends HttpServlet {
         }
 
         LOG.debug("redirect to " + forward);
-        System.out.println(response.getClass());
 
         request.getRequestDispatcher(forward).forward(request, response);
-     }
+    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");

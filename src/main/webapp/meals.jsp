@@ -39,8 +39,8 @@
             <td>${f:formatLocalDateTime(m.dateTime)}</td>
             <td>${m.description}</td>
             <td>${m.calories}</td>
-            <td><a href="meals?action=edit&id=<c:out value="${m.id}"/>">Обновить</a></td>
-            <td><a href="meals?action=delete&id=<c:out value="${m.id}"/>">Удалить</a></td>
+            <td><a href="meals?action=edit&id=${m.id}">Обновить</a></td>
+            <td><a href="meals?action=delete&id=${m.id}">Удалить</a></td>
         </tr>
     </c:forEach>
     </tbody>
