@@ -43,6 +43,10 @@ public class Meal extends BaseEntity {
         return userId;
     }
 
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
     public LocalDateTime getDateTime() {
         return dateTime;
     }

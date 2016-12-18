@@ -13,12 +13,48 @@
         .exceeded {
             color: red;
         }
+
+        dl {
+            background: none repeat scroll 0 0 #FAFAFA;
+            margin: 8px 0;
+            padding: 0;
+        }
+
+        dt {
+            display: inline-block;
+            width: 100px;
+        }
+
+        dd {
+            display: inline-block;
+            margin-left: 8px;
+            vertical-align: top;
+            width: 160px;
+        }
     </style>
 </head>
 <body>
 <section>
     <h2><a href="index.html">Home</a></h2>
     <h2>Meal list</h2>
+
+    <form method="get" action="meals">
+        <input type="hidden" name="action" value="filter">
+        <dl>
+            <dt>Date range:</dt>
+            <dd><input type="date" value="${startDate}" name="startDate"></dd>
+            -
+            <dd><input type="date" value="${endDate}" name="endDate"></dd>
+        </dl>
+        <dl>
+            <dt>Time range:</dt>
+            <dd><input type="time" value="${startTime}" name="startTime"></dd>
+            -
+            <dd><input type="time" value="${endTime}" name="endTime"></dd>
+        </dl>
+        <button type="submit">Filter</button>
+    </form>
+
     <a href="meals?action=create">Add Meal</a>
     <hr>
     <table border="1" cellpadding="8" cellspacing="0">

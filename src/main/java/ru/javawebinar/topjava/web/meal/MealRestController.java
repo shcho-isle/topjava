@@ -7,7 +7,11 @@ import org.springframework.stereotype.Controller;
 import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.service.MealService;
+import ru.javawebinar.topjava.to.MealWithExceed;
+import ru.javawebinar.topjava.util.MealsUtil;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 /**
@@ -21,9 +25,31 @@ public class MealRestController {
     @Autowired
     private MealService service;
 
-    public List<Meal> getAll() {
+    public List<MealWithExceed> getAll() {
         LOG.info("getAll meal");
-        return service.getAll(AuthorizedUser.id());
+        return MealsUtil.getWithExceeded(service.getAll(AuthorizedUser.id()), MealsUtil.DEFAULT_CALORIES_PER_DAY);
+    }
+
+    public List<MealWithExceed> getFiltered(String startDateStr, String endDateStr, String startTimeStr, String endTimeStr) {
+        LOG.info("getFiltered meal");
+
+        List<Meal> meals;
+
+        if (startDateStr.equals("") && endDateStr.equals("")) {
+            meals = service.getAll(AuthorizedUser.id());
+        } else {
+            LocalDate startDate = startDateStr.equals("") ? LocalDate.MIN : LocalDate.parse(startDateStr);
+            LocalDate endDate = endDateStr.equals("") ? LocalDate.MAX : LocalDate.parse(endDateStr);
+            meals = service.getFiltered(startDate, endDate, AuthorizedUser.id());
+        }
+
+        if (startTimeStr.equals("") && endTimeStr.equals("")) {
+            return MealsUtil.getWithExceeded(meals, MealsUtil.DEFAULT_CALORIES_PER_DAY);
+        } else {
+            LocalTime startTime = startTimeStr.equals("") ? LocalTime.MIN : LocalTime.parse(startTimeStr);
+            LocalTime endTime = endTimeStr.equals("") ? LocalTime.MAX : LocalTime.parse(endTimeStr);
+            return MealsUtil.getFilteredWithExceeded(meals, startTime, endTime, MealsUtil.DEFAULT_CALORIES_PER_DAY);
+        }
     }
 
     public Meal get(int id) {
@@ -33,6 +59,7 @@ public class MealRestController {
 
     public Meal create(Meal meal) {
         meal.setId(null);
+        meal.setUserId(AuthorizedUser.id());
         LOG.info("create meal " + meal);
         return service.save(meal);
     }
@@ -42,8 +69,8 @@ public class MealRestController {
         service.delete(id, AuthorizedUser.id());
     }
 
-    public void update(Meal meal, int id) {
-        meal.setId(id);
+    public void update(Meal meal) {
+        meal.setUserId(AuthorizedUser.id());
         LOG.info("update meal " + meal);
         service.update(meal);
     }
