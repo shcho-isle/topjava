@@ -67,10 +67,7 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
 
     @Override
     public List<Meal> getAll(int userId) {
-        return repository.values().stream()
-                .filter(meal -> meal.getUserId().equals(userId))
-                .sorted((o1, o2) -> o2.getDateTime().compareTo(o1.getDateTime()))
-                .collect(Collectors.toList());
+        return getFiltered(LocalDate.MIN, LocalDate.MAX, userId);
     }
 
     public List<Meal> getFiltered(LocalDate startDate, LocalDate endDate, int userId) {
