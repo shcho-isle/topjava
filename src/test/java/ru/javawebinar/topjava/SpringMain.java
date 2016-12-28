@@ -2,6 +2,8 @@ package ru.javawebinar.topjava;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import ru.javawebinar.topjava.model.Role;
+import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.to.MealWithExceed;
 import ru.javawebinar.topjava.web.meal.MealRestController;
 import ru.javawebinar.topjava.web.user.AdminRestController;
@@ -22,7 +24,8 @@ public class SpringMain {
         try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/Spring-All-Module.xml")) {
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
             AdminRestController adminUserController = appCtx.getBean(AdminRestController.class);
-            adminUserController.create(UserTestData.USER);
+            adminUserController.update(UserTestData.USER, UserTestData.USER_ID);
+            adminUserController.create(new User(null, "FromSpringMain", "FromSpringMain@yandex.ru", "password", Role.ROLE_USER));
             System.out.println();
 
             MealRestController mealController = appCtx.getBean(MealRestController.class);
