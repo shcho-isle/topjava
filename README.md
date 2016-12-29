@@ -1,5 +1,8 @@
 Java Enterprise Online Project 
 ===============================
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/304687845f0e4946ab63a2ce17d93b98)](https://www.codacy.com/app/pavlo-plynko/topjava?utm_source=github.com&utm_medium=referral&utm_content=shcho-isle/topjava&utm_campaign=badger)
+
 Наиболее востребованные технологии /инструменты / фреймворки Java Enterprise:
 Maven/ Spring/ Security/ JPA(Hibernate)/ REST(Jackson)/ Bootstrap(CSS)/ jQuery + plugins.
 
@@ -82,14 +85,6 @@ Optional
 ```
 Сделать реализация через Java 8 Stream API. Заменяйте forEach оператором stream.map(..)
 ```
-
-## ![error](https://cloud.githubusercontent.com/assets/13649199/13672935/ef09ec1e-e6e7-11e5-9f79-d1641c05cbe6.png) Замечания к HW0
-- Код проекта менять можно! Одна из распространенных ошибок как в тестовых заданиях на собеседовании, так и при работе на проекте, что ничего нельзя менять. Конечно при правках в рабочем проекте обязятельно нужно проконсультироваться/проревьюится у авторов кода (находится по истории VCS)
-- Наследовать `UserMealWithExceed` от `UserMeal` я не буду, т.к. это разные сущности: Transfer Object и Entity. Мы будет их проходить на 2м уроке.
-- Правильная реализация должна быть простой и красивой, можно сделать 2-мя способами: через стримы и через циклы. Сложность должна быть O(N), т.е. без вложенных стримов и циклов.
-
------
-
 ### Полезные ресурсы
 > ВНИМАНИЕ: основы JavaSсript необходимы для понимания проекта, начиная с 8-го занятия!
 
