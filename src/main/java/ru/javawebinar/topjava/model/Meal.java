@@ -1,7 +1,9 @@
 package ru.javawebinar.topjava.model;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -10,11 +12,35 @@ import java.time.LocalTime;
  * GKislin
  * 11.01.2015.
  */
+@NamedQueries({
+        @NamedQuery(name = Meal.UPDATE, query =
+                "UPDATE Meal m SET m.description=:description, m.calories=:calories, m.dateTime=:dateTime " +
+                        "WHERE m.id=:id AND m.user.id=:userId"),
+        @NamedQuery(name = Meal.BY_ID, query = "SELECT m FROM Meal m WHERE m.id=:id AND m.user.id=:userId"),
+        @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m WHERE m.id=:id AND m.user.id=:userId"),
+        @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT m FROM Meal m WHERE m.user.id=:userId ORDER BY m.dateTime DESC"),
+        @NamedQuery(name = Meal.ALL_BETWEEN, query =
+                "SELECT m FROM Meal m WHERE m.user.id=:userId AND m.dateTime BETWEEN :startDate AND :endDate ORDER BY m.dateTime DESC")
+})
+@Entity
+@Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date_time"}, name = "meals_unique_user_datetime_idx")})
 public class Meal extends BaseEntity {
+
+    public static final String UPDATE = "Meal.update";
+    public static final String BY_ID = "Meal.getById";
+    public static final String DELETE = "Meal.delete";
+    public static final String ALL_SORTED = "Meal.getAllSorted";
+    public static final String ALL_BETWEEN = "Meal.getAllBetween";
+
+    @Column(name = "date_time", columnDefinition = "timestamp", nullable = false)
     private LocalDateTime dateTime;
 
+    @NotEmpty
+    @Column(name = "description", nullable = false)
     private String description;
 
+    @Column(name = "calories", columnDefinition = "int")
+    @Digits(fraction = 0, integer = 4)
     private int calories;
 
     @ManyToOne(fetch = FetchType.LAZY)
