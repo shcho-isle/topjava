@@ -14,20 +14,18 @@ import java.time.LocalTime;
  */
 @NamedQueries({
         @NamedQuery(name = Meal.UPDATE, query =
-                "UPDATE Meal m SET m.description=:description, m.calories=:calories, m.dateTime=:dateTime " +
-                        "WHERE m.id=:id AND m.user.id=:userId"),
-        @NamedQuery(name = Meal.BY_ID, query = "SELECT m FROM Meal m WHERE m.id=:id AND m.user.id=:userId"),
-        @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m WHERE m.id=:id AND m.user.id=:userId"),
-        @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT m FROM Meal m WHERE m.user.id=:userId ORDER BY m.dateTime DESC"),
-        @NamedQuery(name = Meal.ALL_BETWEEN, query =
-                "SELECT m FROM Meal m WHERE m.user.id=:userId AND m.dateTime BETWEEN :startDate AND :endDate ORDER BY m.dateTime DESC")
+                "UPDATE Meal m SET m.description=:description, m.calories=:calories, m.dateTime=:dateTime "
+                        + "WHERE m.id=:id AND m.user.id=:userId")
+        , @NamedQuery(name = Meal.DELETE, query = "DELETE FROM Meal m WHERE m.id=:id AND m.user.id=:userId")
+        , @NamedQuery(name = Meal.ALL_SORTED, query = "SELECT m FROM Meal m WHERE m.user.id=:userId ORDER BY m.dateTime DESC")
+        , @NamedQuery(name = Meal.ALL_BETWEEN, query =
+        "SELECT m FROM Meal m WHERE m.user.id=:userId AND m.dateTime BETWEEN :startDate AND :endDate ORDER BY m.dateTime DESC")
 })
 @Entity
 @Table(name = "meals", uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "date_time"}, name = "meals_unique_user_datetime_idx")})
 public class Meal extends BaseEntity {
 
     public static final String UPDATE = "Meal.update";
-    public static final String BY_ID = "Meal.getById";
     public static final String DELETE = "Meal.delete";
     public static final String ALL_SORTED = "Meal.getAllSorted";
     public static final String ALL_BETWEEN = "Meal.getAllBetween";
