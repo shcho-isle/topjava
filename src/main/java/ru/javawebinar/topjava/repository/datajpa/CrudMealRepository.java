@@ -27,11 +27,9 @@ public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
     @Query("DELETE FROM Meal m WHERE m.id=?1 AND m.user.id=?2")
     int delete(int id, int userId);
 
-    @Modifying
     @Query("SELECT m FROM Meal m WHERE m.user.id=:userId ORDER BY m.dateTime DESC")
     List<Meal> findAll(@Param("userId") int userId);
 
-    @Modifying
     @Query("SELECT m FROM Meal m WHERE m.user.id=?3 AND m.dateTime BETWEEN ?1 AND ?2 ORDER BY m.dateTime DESC")
     List<Meal> findBetween(LocalDateTime startDate, LocalDateTime endDate, int userId);
 }

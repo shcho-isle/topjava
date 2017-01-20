@@ -1,8 +1,8 @@
-package ru.javawebinar.topjava.service;
+package ru.javawebinar.topjava.service.jpa;
 
 import org.springframework.test.context.ActiveProfiles;
 import ru.javawebinar.topjava.Profiles;
 
-@ActiveProfiles(Profiles.JDBC)
-public interface ApiJdbc {
+@ActiveProfiles(Profiles.JPA)
+public interface ApiJpa {
 }

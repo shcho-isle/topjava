@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import ru.javawebinar.topjava.Profiles;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.util.DateTimeUtil;
 import ru.javawebinar.topjava.web.meal.MealRestController;
@@ -33,8 +34,11 @@ public class MealServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        System.setProperty("spring.profiles.active", "postgres");
-        springContext = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/spring-db.xml");
+
+        String[] configLocations = {"spring/spring-app.xml", "spring/spring-db.xml"};
+        springContext = new ClassPathXmlApplicationContext(configLocations, false);
+        springContext.getEnvironment().setActiveProfiles(Profiles.ACTIVE_DB, Profiles.ACTIVE_API);
+        springContext.refresh();
         mealController = springContext.getBean(MealRestController.class);
     }
 
