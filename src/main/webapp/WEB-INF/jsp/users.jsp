@@ -2,6 +2,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<head>
+    <title><fmt:message key="users.title"/></title>
+</head>
+
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
