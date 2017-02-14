@@ -86,7 +86,7 @@
                             </td>
                             <td>${meal.description}</td>
                             <td>${meal.calories}</td>
-                            <td><a class="btn btn-xs btn-primary">
+                            <td><a class="btn btn-xs btn-primary" onclick="updateRow(${meal.id})">
                                 <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                             </a></td>
                             <td><a class="btn btn-xs btn-danger" onclick="deleteRow(${meal.id})">
@@ -151,4 +151,7 @@
     </div>
 </div>
 </body>
+<script type="text/javascript">
+    var editTitle ='<spring:message code="meals.edit"/>';
+</script>
 </html>
