@@ -96,6 +96,18 @@ public class AdminRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    public void testUpdateNotValid() throws Exception {
+        User updated = new User(USER);
+        updated.setName("");
+        updated.setRoles(Collections.singletonList(Role.ROLE_ADMIN));
+        mockMvc.perform(put(REST_URL + USER_ID)
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(ADMIN))
+                .content(JsonUtil.writeValue(updated)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     public void testCreate() throws Exception {
         User expected = new User(null, "New", "new@gmail.com", "newPass", 2300, Role.ROLE_USER, Role.ROLE_ADMIN);
         ResultActions action = mockMvc.perform(post(REST_URL)
@@ -108,6 +120,15 @@ public class AdminRestControllerTest extends AbstractControllerTest {
 
         MATCHER.assertEquals(expected, returned);
         MATCHER.assertCollectionEquals(Arrays.asList(ADMIN, expected, USER), userService.getAll());
+    }
+
+    @Test
+    public void testCreateNotValid() throws Exception {
+        User expected = new User(null, "", "new@gmail.com", "newPass", 2300, Role.ROLE_USER, Role.ROLE_ADMIN);
+        mockMvc.perform(post(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(ADMIN))
+                .content(JsonUtil.writeValue(expected))).andExpect(status().isBadRequest());
     }
 
     @Test
