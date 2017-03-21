@@ -1,7 +1,6 @@
 package ru.javawebinar.topjava.model;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.SafeHtml;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -15,7 +14,6 @@ public class NamedEntity extends BaseEntity {
 
     @NotBlank
     @Column(name = "name", nullable = false)
-    @SafeHtml
     protected String name;
 
     public NamedEntity() {

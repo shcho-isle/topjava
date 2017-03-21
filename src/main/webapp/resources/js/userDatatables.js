@@ -21,7 +21,13 @@ function enable(chkbox, id) {
 
 // $(document).ready(function () {
 $(function () {
-    datatableApi = $('#datatable').DataTable(extendsOpts({
+    datatableApi = $('#datatable').DataTable({
+        "ajax": {
+            "url": ajaxUrl,
+            "dataSrc": ""
+        },
+        "paging": false,
+        "info": true,
         "columns": [
             {
                 "data": "name"
@@ -77,6 +83,7 @@ $(function () {
             if (!data.enabled) {
                 $(row).addClass("disabled");
             }
-        }
-    }));
+        },
+        "initComplete": makeEditable
+    });
 });

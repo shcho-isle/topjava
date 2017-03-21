@@ -18,7 +18,13 @@ function updateTable() {
 }
 
 $(function () {
-    datatableApi = $('#datatable').DataTable(extendsOpts({
+    datatableApi = $("#datatable").DataTable({
+        "ajax": {
+            "url": ajaxUrl,
+            "dataSrc": ""
+        },
+        "paging": false,
+        "info": true,
         "columns": [
             {
                 "data": "dateTime",
@@ -54,10 +60,9 @@ $(function () {
         ],
         "createdRow": function (row, data, dataIndex) {
             $(row).addClass(data.exceed ? 'exceeded' : 'normal');
-        }
-    }));
-
-    $.datetimepicker.setLocale(localeCode);
+        },
+        "initComplete": makeEditable
+    });
 
     var startDate = $('#startDate');
     var endDate = $('#endDate');
