@@ -15,3 +15,7 @@ before_script:
 # https://docs.travis-ci.com/user/notifications#Configuring-email-notifications
 notifications:
   email: false
+
+# https://docs.travis-ci.com/user/environment-variables/
+env:
+  - TOPJAVA_ROOT=$TRAVIS_BUILD_DIR
