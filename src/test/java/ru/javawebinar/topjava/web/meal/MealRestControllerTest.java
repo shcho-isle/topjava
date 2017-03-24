@@ -13,6 +13,7 @@ import ru.javawebinar.topjava.web.AbstractControllerTest;
 import ru.javawebinar.topjava.web.json.JsonUtil;
 
 import java.util.Arrays;
+import java.util.Locale;
 
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -173,6 +174,7 @@ public class MealRestControllerTest extends AbstractControllerTest {
     public void testUpdateDuplicate() throws Exception {
         Meal invalid = new Meal(MEAL1_ID, MEAL2.getDateTime(), "Dummy", 200);
         mockMvc.perform(put(REST_URL + MEAL1_ID)
+                .locale(Locale.forLanguageTag("ru"))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(invalid))
                 .with(userHttpBasic(USER)))
@@ -184,6 +186,7 @@ public class MealRestControllerTest extends AbstractControllerTest {
     public void testCreateDuplicate() throws Exception {
         Meal invalid = new Meal(null, ADMIN_MEAL1.getDateTime(), "Dummy", 200);
         mockMvc.perform(post(REST_URL)
+                .locale(Locale.forLanguageTag("ru"))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(invalid))
                 .with(userHttpBasic(ADMIN)))

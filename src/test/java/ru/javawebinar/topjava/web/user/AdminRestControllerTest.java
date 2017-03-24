@@ -12,6 +12,7 @@ import ru.javawebinar.topjava.web.json.JsonUtil;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Locale;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -151,6 +152,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
         User updated = new User(USER);
         updated.setEmail("admin@gmail.com");
         mockMvc.perform(put(REST_URL + USER_ID)
+                .locale(Locale.forLanguageTag("ru"))
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(ADMIN))
                 .content(JsonUtil.writeValue(updated)))
@@ -162,6 +164,7 @@ public class AdminRestControllerTest extends AbstractControllerTest {
     public void testCreateDuplicate() throws Exception {
         User expected = new User(null, "New", "user@yandex.ru", "newPass", 2300, Role.ROLE_USER, Role.ROLE_ADMIN);
         mockMvc.perform(post(REST_URL)
+                .locale(Locale.forLanguageTag("ru"))
                 .contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(ADMIN))
                 .content(JsonUtil.writeValue(expected)))

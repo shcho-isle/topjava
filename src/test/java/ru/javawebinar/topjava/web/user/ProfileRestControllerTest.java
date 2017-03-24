@@ -11,6 +11,7 @@ import ru.javawebinar.topjava.web.AbstractControllerTest;
 import ru.javawebinar.topjava.web.json.JsonUtil;
 
 import java.util.Collections;
+import java.util.Locale;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -77,6 +78,7 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
 
         mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(USER))
+                .locale(Locale.forLanguageTag("ru"))
                 .content(JsonUtil.writeValue(updatedTo)))
                 .andExpect(status().isConflict());
     }
