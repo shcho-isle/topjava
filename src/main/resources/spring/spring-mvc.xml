@@ -71,7 +71,7 @@
     </bean>
 
     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
-        <property name="defaultLocale" value="ua"/>
+        <property name="defaultLocale" value="uk"/>
     </bean>
 
     <mvc:interceptors>
