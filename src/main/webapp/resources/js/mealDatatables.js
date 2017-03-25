@@ -23,7 +23,7 @@ $(function () {
             {
                 "data": "dateTime",
                 "render": function (date, type, row) {
-                    if (type == 'display') {
+                    if (type === 'display') {
                         return formatDate(date);
                     }
                     return date;

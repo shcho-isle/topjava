@@ -6,13 +6,11 @@ Java Enterprise Online Project
 
 Technology used:
 - Maven
-- Spring
-- Security
+- Spring MVC
+- Spring Security
 - JPA(Hibernate)
 - REST(Jackson)
 - Bootstrap(CSS)
 - jQuery + plugins.
 
-### <a href="http://topjava.herokuapp.com/" target=_blank>Project's demo</a>
-
-See application properties at `/src/main/resources/db/postgres.properties`
+### <a href="http://plynko.herokuapp.com/" target=_blank>Project's demo</a>

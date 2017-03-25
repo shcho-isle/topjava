@@ -79,6 +79,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @CacheEvict(value = "users", allEntries = true)
     @Override
     public void evictCache() {
+        // http://docs.spring.io/spring-framework/docs/current/spring-framework-reference/html/cache.html
     }
 
     @CacheEvict(value = "users", allEntries = true)
