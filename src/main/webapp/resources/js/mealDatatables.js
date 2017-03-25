@@ -18,12 +18,12 @@ function updateTable() {
 }
 
 $(function () {
-    datatableApi = $('#datatable').DataTable(extendsOpts({
+    datatableApi = $("#datatable").DataTable(extendsOpts({
         "columns": [
             {
                 "data": "dateTime",
                 "render": function (date, type, row) {
-                    if (type === 'display') {
+                    if (type === "display") {
                         return formatDate(date);
                     }
                     return date;
@@ -53,41 +53,41 @@ $(function () {
             ]
         ],
         "createdRow": function (row, data, dataIndex) {
-            $(row).addClass(data.exceed ? 'exceeded' : 'normal');
+            $(row).addClass(data.exceed ? "exceeded" : "normal");
         }
     }));
 
     $.datetimepicker.setLocale(localeCode);
 
-    var startDate = $('#startDate');
-    var endDate = $('#endDate');
+    var startDate = $("#startDate");
+    var endDate = $("#endDate");
     startDate.datetimepicker({
         timepicker: false,
-        format: 'Y-m-d',
-        formatDate: 'Y-m-d',
+        format: "Y-m-d",
+        formatDate: "Y-m-d",
         onShow: function (ct) {
             this.setOptions({
                 maxDate: endDate.val() ? endDate.val() : false
-            })
+            });
         }
     });
     endDate.datetimepicker({
         timepicker: false,
-        format: 'Y-m-d',
-        formatDate: 'Y-m-d',
+        format: "Y-m-d",
+        formatDate: "Y-m-d",
         onShow: function (ct) {
             this.setOptions({
                 minDate: startDate.val() ? startDate.val() : false
-            })
+            });
         }
     });
 
-    $('#startTime, #endTime').datetimepicker({
+    $("#startTime, #endTime").datetimepicker({
         datepicker: false,
-        format: 'H:i'
+        format: "H:i"
     });
 
-    $('#dateTime').datetimepicker({
-        format: 'Y-m-d H:i'
+    $("#dateTime").datetimepicker({
+        format: "Y-m-d H:i"
     });
 });

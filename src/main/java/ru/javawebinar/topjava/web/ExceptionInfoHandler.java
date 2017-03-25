@@ -30,17 +30,21 @@ import java.util.Optional;
 @ControllerAdvice(annotations = RestController.class)
 @Order(Ordered.HIGHEST_PRECEDENCE + 5)
 public class ExceptionInfoHandler {
-    private static Logger LOG = LoggerFactory.getLogger(ExceptionInfoHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ExceptionInfoHandler.class);
 
-    private static Map<String, String> constraintCodeMap = new HashMap<String, String>() {
+    private static final Map<String, String> CONSTRAINT_CODE_MAP = new HashMap<String, String>() {
         {
             put("users_unique_email_idx", "exception.users.duplicate_email");
             put("meals_unique_user_datetime_idx", "exception.meals.duplicate_datetime");
         }
     };
 
+    private final MessageSource messageSource;
+
     @Autowired
-    private MessageSource messageSource;
+    public ExceptionInfoHandler(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
 
     //  http://stackoverflow.com/a/22358422/548473
     @ResponseStatus(value = HttpStatus.UNPROCESSABLE_ENTITY)
@@ -58,7 +62,7 @@ public class ExceptionInfoHandler {
     public ErrorInfo conflict(HttpServletRequest req, DataIntegrityViolationException e) {
         String rootMsg = ValidationUtil.getRootCause(e).getMessage();
         if (rootMsg != null) {
-            Optional<Map.Entry<String, String>> entry = constraintCodeMap.entrySet().stream()
+            Optional<Map.Entry<String, String>> entry = CONSTRAINT_CODE_MAP.entrySet().stream()
                     .filter((it) -> rootMsg.contains(it.getKey()))
                     .findAny();
             if (entry.isPresent()) {
@@ -95,7 +99,7 @@ public class ExceptionInfoHandler {
         return logAndGetErrorInfo(req, e, true);
     }
 
-    public static ErrorInfo logAndGetValidationErrorInfo(HttpServletRequest req, BindingResult result) {
+    private static ErrorInfo logAndGetValidationErrorInfo(HttpServletRequest req, BindingResult result) {
         String[] details = result.getFieldErrors().stream()
                 .map(fe -> fe.getField() + ' ' + fe.getDefaultMessage())
                 .toArray(String[]::new);
@@ -104,7 +108,7 @@ public class ExceptionInfoHandler {
         return new ErrorInfo(req.getRequestURL(), "ValidationException", details);
     }
 
-    public static ErrorInfo logAndGetErrorInfo(HttpServletRequest req, Exception e, boolean logException) {
+    private static ErrorInfo logAndGetErrorInfo(HttpServletRequest req, Exception e, boolean logException) {
         if (logException) {
             LOG.error("Exception at request " + req.getRequestURL(), e);
         } else {

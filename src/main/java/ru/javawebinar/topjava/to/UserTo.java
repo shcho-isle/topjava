@@ -77,7 +77,7 @@ public class UserTo extends BaseTo implements Serializable {
     @Override
     public String toString() {
         return "UserTo{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", caloriesPerDay='" + caloriesPerDay + '\'' +

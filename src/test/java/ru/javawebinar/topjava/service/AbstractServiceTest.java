@@ -37,13 +37,13 @@ import static org.hamcrest.CoreMatchers.instanceOf;
 abstract public class AbstractServiceTest {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractServiceTest.class);
 
-    private static StringBuilder results = new StringBuilder();
+    private static final StringBuilder RESULTS = new StringBuilder();
 
     @Rule
-    public ExpectedException thrown = ExpectedException.none();
+    public final ExpectedException thrown = ExpectedException.none();
 
     @Autowired
-    public Environment env;
+    private Environment env;
 
     @Rule
     // http://stackoverflow.com/questions/14892125/what-is-the-best-practice-to-determine-the-execution-time-of-the-bussiness-relev
@@ -51,7 +51,7 @@ abstract public class AbstractServiceTest {
         @Override
         protected void finished(long nanos, Description description) {
             String result = String.format("%-95s %7d", description.getDisplayName(), TimeUnit.NANOSECONDS.toMillis(nanos));
-            results.append(result).append('\n');
+            RESULTS.append(result).append('\n');
             LOG.info(result + " ms\n");
         }
     };
@@ -61,9 +61,9 @@ abstract public class AbstractServiceTest {
         LOG.info("\n---------------------------------" +
                 "\nTest                 Duration, ms" +
                 "\n---------------------------------\n" +
-                results +
+                RESULTS +
                 "---------------------------------\n");
-        results.setLength(0);
+        RESULTS.setLength(0);
     }
 
     public boolean isJpaBased() {

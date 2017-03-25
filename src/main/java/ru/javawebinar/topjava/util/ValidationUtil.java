@@ -7,7 +7,7 @@ import ru.javawebinar.topjava.util.exception.NotFoundException;
  * User: gkislin
  * Date: 14.05.2014
  */
-public class ValidationUtil {
+public final class ValidationUtil {
     private ValidationUtil() {
     }
 
@@ -48,10 +48,11 @@ public class ValidationUtil {
 //    http://stackoverflow.com/a/28565320/548473
     public static Throwable getRootCause(Throwable t) {
         Throwable result = t;
-        Throwable cause;
+        Throwable cause = result.getCause();
 
-        while (null != (cause = result.getCause()) && (result != cause)) {
+        while (null != cause && !result.equals(cause)) {
             result = cause;
+            cause = result.getCause();
         }
         return result;
     }

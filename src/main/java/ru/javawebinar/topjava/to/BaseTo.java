@@ -7,7 +7,7 @@ import ru.javawebinar.topjava.HasId;
  * 18.02.2017
  */
 abstract public class BaseTo implements HasId {
-    protected Integer id;
+    private Integer id;
 
     public BaseTo() {
     }

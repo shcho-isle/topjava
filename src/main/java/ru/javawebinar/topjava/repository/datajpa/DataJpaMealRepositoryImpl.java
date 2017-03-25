@@ -16,11 +16,15 @@ import java.util.List;
 @Repository
 public class DataJpaMealRepositoryImpl implements MealRepository {
 
-    @Autowired
-    private CrudMealRepository crudMealRepository;
+    private final CrudMealRepository crudMealRepository;
+
+    private final CrudUserRepository crudUserRepository;
 
     @Autowired
-    private CrudUserRepository crudUserRepository;
+    public DataJpaMealRepositoryImpl(CrudMealRepository crudMealRepository, CrudUserRepository crudUserRepository) {
+        this.crudMealRepository = crudMealRepository;
+        this.crudUserRepository = crudUserRepository;
+    }
 
     @Override
     @Transactional

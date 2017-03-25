@@ -3,5 +3,4 @@ out
 target
 *.iml
 log
-*.patch
 lessons

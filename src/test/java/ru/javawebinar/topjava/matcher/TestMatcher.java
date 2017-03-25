@@ -9,7 +9,7 @@ import ru.javawebinar.topjava.web.json.JsonUtil;
  * 05.01.2015.
  */
 abstract public class TestMatcher<T> extends BaseMatcher<String> {
-    protected T expected;
+    private final T expected;
 
     public TestMatcher(T expected) {
         this.expected = expected;

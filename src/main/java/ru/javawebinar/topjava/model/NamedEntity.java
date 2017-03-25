@@ -16,7 +16,7 @@ public class NamedEntity extends BaseEntity {
     @NotBlank
     @Column(name = "name", nullable = false)
     @SafeHtml
-    protected String name;
+    private String name;
 
     public NamedEntity() {
     }

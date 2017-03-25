@@ -27,8 +27,8 @@ public class ModelMatcher<T> {
     private static final Comparator DEFAULT_COMPARATOR =
             (Object expected, Object actual) -> expected == actual || String.valueOf(expected).equals(String.valueOf(actual));
 
-    private Comparator<T> comparator;
-    private Class<T> entityClass;
+    private final Comparator<T> comparator;
+    private final Class<T> entityClass;
 
     public interface Comparator<T> {
         boolean compare(T expected, T actual);
@@ -52,7 +52,7 @@ public class ModelMatcher<T> {
     }
 
     private class Wrapper {
-        private T entity;
+        private final T entity;
 
         private Wrapper(T entity) {
             this.entity = entity;
@@ -92,11 +92,11 @@ public class ModelMatcher<T> {
         Assert.assertEquals(wrap(expected), wrap(actual));
     }
 
-    public Wrapper wrap(T entity) {
+    private Wrapper wrap(T entity) {
         return new Wrapper(entity);
     }
 
-    public List<Wrapper> wrap(Collection<T> collection) {
+    private List<Wrapper> wrap(Collection<T> collection) {
         return collection.stream().map(this::wrap).collect(Collectors.toList());
     }
 
@@ -112,6 +112,7 @@ public class ModelMatcher<T> {
                 });
     }
 
+    @SafeVarargs
     public final ResultMatcher contentListMatcher(T... expected) {
         return contentListMatcher(Arrays.asList(expected));
     }

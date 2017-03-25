@@ -10,7 +10,9 @@ Technology used:
 - Spring Security
 - JPA(Hibernate)
 - REST(Jackson)
-- Bootstrap(CSS)
-- jQuery + plugins.
+- Bootstrap(CSS/JS)
+- DataTables
+- jQuery + plugins
+- Java 8 Stream and Time API
 
-### <a href="http://plynko.herokuapp.com/" target=_blank>Project's demo</a>
+### Project's demo: http://plynko.herokuapp.com

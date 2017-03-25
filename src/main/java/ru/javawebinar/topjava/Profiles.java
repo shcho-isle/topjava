@@ -1,6 +1,6 @@
 package ru.javawebinar.topjava;
 
-public class Profiles {
+public final class Profiles {
     public static final String
             POSTGRES = "postgres",
             HSQLDB = "hsqldb",
@@ -11,6 +11,9 @@ public class Profiles {
             DATAJPA = "datajpa";
 
     public static final String DB_IMPLEMENTATION = DATAJPA;
+
+    private Profiles() {
+    }
 
     public static String getActiveDbProfile() {
         try {

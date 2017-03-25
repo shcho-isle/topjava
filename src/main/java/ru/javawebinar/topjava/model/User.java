@@ -9,6 +9,7 @@ import org.springframework.util.CollectionUtils;
 import ru.javawebinar.topjava.View;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.*;
 
 import static ru.javawebinar.topjava.util.UserUtil.DEFAULT_CALORIES_PER_DAY;
@@ -51,7 +52,7 @@ public class User extends NamedEntity {
     private boolean enabled = true;
 
     @Column(name = "registered", columnDefinition = "timestamp default now()")
-    private Date registered = new Date();
+    private LocalDate registered = LocalDate.now();
 
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @Enumerated(EnumType.STRING)
@@ -69,7 +70,7 @@ public class User extends NamedEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
     @OrderBy("dateTime DESC")
 //    @JsonIgnore
-    protected List<Meal> meals;
+    private List<Meal> meals;
 
     public User() {
     }
@@ -103,11 +104,11 @@ public class User extends NamedEntity {
         this.password = password;
     }
 
-    public Date getRegistered() {
+    public LocalDate getRegistered() {
         return registered;
     }
 
-    public void setRegistered(Date registered) {
+    public void setRegistered(LocalDate registered) {
         this.registered = registered;
     }
 
@@ -148,7 +149,7 @@ public class User extends NamedEntity {
         return "User (" +
                 "id=" + getId() +
                 ", email=" + email +
-                ", name=" + name +
+                ", name=" + getName() +
                 ", enabled=" + enabled +
                 ", roles=" + roles +
                 ", caloriesPerDay=" + caloriesPerDay +
