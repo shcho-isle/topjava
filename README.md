@@ -15,4 +15,4 @@ Technology used:
 - jQuery + plugins
 - Java 8 Stream and Time API
 
-### Project's demo: http://plynko.herokuapp.com
+### Deployed project: http://plynko.herokuapp.com
