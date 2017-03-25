@@ -1,5 +1,7 @@
 var form;
 
+var failedNote;
+
 function closeNoty() {
     if (failedNote) {
         failedNote.close();
@@ -64,7 +66,7 @@ function formatDate(date) {
 }
 
 function updateRow(id) {
-    $('#modalTitle').html(i18n[editTitleKey]);
+    $("#modalTitle").html(i18n[editTitleKey]);
     $.get(ajaxUrl + id, function (data) {
         $.each(data, function (key, value) {
             form.find("input[name='" + key + "']").val(
@@ -106,25 +108,23 @@ function save() {
         url: ajaxUrl,
         data: form.serialize(),
         success: function () {
-            $('#editRow').modal("hide");
+            $("#editRow").modal("hide");
             updateTable();
             successNoty("common.saved");
         }
     });
 }
 
-var failedNote;
-
 function renderEditBtn(data, type, row) {
     if (type === "display") {
-        return '<a class="btn btn-xs btn-primary" onclick="updateRow(' + row.id + ');">' +
-            '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>';
+        return "<a class='btn btn-xs btn-primary' onclick='updateRow(" + row.id + ");'>" +
+            "<span class='glyphicon glyphicon-pencil' aria-hidden='true'></span></a>";
     }
 }
 
 function renderDeleteBtn(data, type, row) {
     if (type === "display") {
-        return '<a class="btn btn-xs btn-danger" onclick="deleteRow(' + row.id + ');">'+
-            '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>';
+        return "<a class='btn btn-xs btn-danger' onclick='deleteRow(" + row.id + ");'>"+
+            "<span class='glyphicon glyphicon-remove' aria-hidden='true'></span></a>";
     }
 }

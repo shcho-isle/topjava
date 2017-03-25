@@ -4,6 +4,7 @@
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">${pageContext.response.locale}<b class="caret"></b></a>
     <ul class="dropdown-menu">
         <li><a onclick="show('en')">English</a></li>
+        <li><a onclick="show('uk')">Українська</a></li>
         <li><a onclick="show('ru')">Русский</a></li>
     </ul>
 </li>
