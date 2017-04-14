@@ -13,6 +13,10 @@
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <form:form class="navbar-form" role="form" action="spring_security_check" method="post">
+                        <a href="oauth/github/authorize" role="button" class="btn btn-social btn-github">
+                            <span class="fa fa-github"></span>
+                            GitHub
+                        </a>
                         <div class="form-group">
                             <input type="text" placeholder="Email" class="form-control" name="username">
                         </div>

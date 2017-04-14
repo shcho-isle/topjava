@@ -15,7 +15,7 @@
 
     <security:global-method-security secured-annotations="enabled" pre-post-annotations="enabled"/>
 
-    <mvc:annotation-driven conversion-service="conversionService">
+    <mvc:annotation-driven conversion-service="conversionService" ignore-default-model-on-redirect="true">
         <mvc:message-converters>
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 <property name="objectMapper" ref="objectMapper"/>
@@ -38,6 +38,12 @@
                 <bean class="ru.javawebinar.topjava.util.converter.DateTimeFormatters.LocalDateFormatter"/>
             </set>
         </property>
+    </bean>
+
+    <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" id="converter"/>
+
+    <bean class="org.springframework.web.client.RestTemplate">
+        <property name="messageConverters" ref="converter"/>
     </bean>
 
     <context:component-scan base-package="ru.javawebinar.**.web"/>

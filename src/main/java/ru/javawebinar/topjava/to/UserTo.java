@@ -38,6 +38,11 @@ public class UserTo extends BaseTo implements Serializable {
         this.caloriesPerDay = caloriesPerDay;
     }
 
+    public UserTo(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
     public String getPassword() {
         return password;
     }
