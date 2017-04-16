@@ -35,12 +35,17 @@ public class Oauth2Controller {
 
     @RequestMapping("/authorize")
     public String authorize() {
-        return "redirect:" + source.getAuthorizeUrl() + "?client_id=" + source.getClientId() + "&client_secret=" + source.getClientSecret() + "&redirect_uri=" + source.getRedirectUri() + "&state=" + source.getCode();
+        return String.format("redirect:%s?client_id=%s&client_secret=%s&redirect_uri=%s&state=%s"
+                , source.getAuthorizeUrl()
+                , source.getClientId()
+                , source.getClientSecret()
+                , source.getRedirectUri()
+                , source.getCode());
     }
 
     @RequestMapping("/callback")
     public ModelAndView authenticate(@RequestParam String code, @RequestParam String state, RedirectAttributes attr) {
-        if (state.equals("calory_csrf_token_auth")) {
+        if (source.getCode().equals(state)) {
             UriComponentsBuilder builder = fromHttpUrl(source.getLoginUrl()).queryParam("access_token", getAccessToken(code));
             ResponseEntity<JsonNode> entityUser = template.getForEntity(builder.build().encode().toUri(), JsonNode.class);
             String login = entityUser.getBody().get("login").asText();

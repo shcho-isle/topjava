@@ -11,10 +11,6 @@ import ru.javawebinar.topjava.AuthorizedUser;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * User: gkislin
- * Date: 23.09.2014
- */
 @ControllerAdvice
 public class GlobalControllerExceptionHandler {
     private static final Logger LOG = LoggerFactory.getLogger(GlobalControllerExceptionHandler.class);

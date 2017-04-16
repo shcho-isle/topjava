@@ -15,10 +15,6 @@ import java.util.List;
 import static ru.javawebinar.topjava.TestUtil.mockAuthorize;
 import static ru.javawebinar.topjava.UserTestData.USER;
 
-/**
- * User: gkislin
- * Date: 22.08.2014
- */
 public class SpringMain {
     public static void main(String[] args) {
         // java 7 Automatic resource management

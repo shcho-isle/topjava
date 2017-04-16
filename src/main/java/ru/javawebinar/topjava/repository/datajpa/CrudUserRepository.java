@@ -11,10 +11,6 @@ import ru.javawebinar.topjava.model.User;
 
 import java.util.List;
 
-/**
- * gkislin
- * 02.10.2016
- */
 @Transactional(readOnly = true)
 public interface CrudUserRepository extends JpaRepository<User, Integer> {
     @Transactional

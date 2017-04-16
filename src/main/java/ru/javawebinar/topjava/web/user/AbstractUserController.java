@@ -19,9 +19,6 @@ import java.util.List;
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNew;
 import static ru.javawebinar.topjava.util.ValidationUtil.checkIdConsistent;
 
-/**
- * User: gkislin
- */
 public abstract class AbstractUserController {
     private final Logger log = LoggerFactory.getLogger(getClass());
 

@@ -3,10 +3,6 @@ package ru.javawebinar.topjava.util;
 import ru.javawebinar.topjava.HasId;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
-/**
- * User: gkislin
- * Date: 14.05.2014
- */
 public final class ValidationUtil {
     private ValidationUtil() {
     }

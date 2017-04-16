@@ -20,10 +20,6 @@ import javax.validation.Valid;
 
 import static org.springframework.security.core.context.SecurityContextHolder.getContext;
 
-/**
- * User: gkislin
- * Date: 22.08.2014
- */
 @Controller
 public class RootController extends AbstractUserController {
 

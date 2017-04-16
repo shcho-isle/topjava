@@ -1,9 +1,5 @@
 package ru.javawebinar.topjava.util.exception;
 
-/**
- * User: gkislin
- * Date: 19.08.2014
- */
 public class ErrorInfo {
     private final String url;
     private final String cause;
