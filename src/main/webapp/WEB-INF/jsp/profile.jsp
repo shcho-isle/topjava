@@ -16,14 +16,15 @@
             <h2>${userTo.name} <spring:message code="${register ? 'app.register' : 'app.profile'}"/></h2>
 
             <div class="view-box">
-                <form:form modelAttribute="userTo" class="form-horizontal" method="post" action="${register ? 'register' : 'profile'}"
-                           charset="utf-8" accept-charset="UTF-8">
+                <form:form modelAttribute="userTo" class="form-horizontal" method="post"
+                           action="${register ? 'register' : 'profile'}" charset="UTF-8" accept-charset="UTF-8">
+                    <input type="hidden" id="social" value="${social}" name="social">
 
                     <spring:message code="users.name" var="userName"/>
                     <topjava:inputField label='${userName}' name="name"/>
 
                     <spring:message code="users.email" var="userEmail"/>
-                    <topjava:inputField label='${userEmail}' name="email"  isSocial="${social}"/>
+                    <topjava:inputField label='${userEmail}' name="email" isSocial="${social}"/>
 
                     <spring:message code="users.password" var="userPassword"/>
                     <topjava:inputField label='${userPassword}' name="password" inputType="password"/>

@@ -4,8 +4,7 @@ public class OauthSource {
 
     private String authorizeUrl;
     private String accessTokenUrl;
-    private String mailUrl;
-    private String loginUrl;
+    private String profileUrl;
     private String clientId;
     private String clientSecret;
     private String redirectUri;
@@ -27,20 +26,12 @@ public class OauthSource {
         this.accessTokenUrl = accessTokenUrl;
     }
 
-    public String getMailUrl() {
-        return mailUrl;
+    public String getProfileUrl() {
+        return profileUrl;
     }
 
-    public void setMailUrl(String mailUrl) {
-        this.mailUrl = mailUrl;
-    }
-
-    public String getLoginUrl() {
-        return loginUrl;
-    }
-
-    public void setLoginUrl(String loginUrl) {
-        this.loginUrl = loginUrl;
+    public void setProfileUrl(String profileUrl) {
+        this.profileUrl = profileUrl;
     }
 
     public String getClientId() {

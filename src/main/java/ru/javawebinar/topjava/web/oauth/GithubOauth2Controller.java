@@ -29,7 +29,7 @@ public class GithubOauth2Controller extends AbstractOauth2Controller {
     @RequestMapping("/callback")
     public ModelAndView authenticate(@RequestParam String code, @RequestParam String state, RedirectAttributes attr) {
         if (source.getState().equals(state)) {
-            UriComponentsBuilder builder = fromHttpUrl(source.getLoginUrl())
+            UriComponentsBuilder builder = fromHttpUrl(source.getProfileUrl())
                     .queryParam("access_token", getAccessToken(code, source));
             ResponseEntity<JsonNode> entityUser = template.getForEntity(builder.build().encode().toUri(), JsonNode.class);
             String login = entityUser.getBody().get("login").asText();
