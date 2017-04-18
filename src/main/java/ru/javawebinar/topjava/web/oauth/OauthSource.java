@@ -9,7 +9,7 @@ public class OauthSource {
     private String clientId;
     private String clientSecret;
     private String redirectUri;
-    private String code;
+    private String state;
 
     public String getAuthorizeUrl() {
         return authorizeUrl;
@@ -67,11 +67,11 @@ public class OauthSource {
         this.redirectUri = redirectUri;
     }
 
-    public String getCode() {
-        return code;
+    public String getState() {
+        return state;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setState(String state) {
+        this.state = state;
     }
 }

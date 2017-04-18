@@ -36,12 +36,21 @@
     <beans:bean name="githubSource" class="ru.javawebinar.topjava.web.oauth.OauthSource"
                 p:accessTokenUrl="https://github.com/login/oauth/access_token"
                 p:authorizeUrl="https://github.com/login/oauth/authorize"
-                p:mailUrl="https://api.github.com/user/emails"
                 p:loginUrl="https://api.github.com/user"
-                p:code="calory_csrf_token_auth"
+                p:state="calory_github_csrf_token_auth"
                 p:redirectUri="http://localhost:8080/topjava/oauth/github/callback"
                 p:clientId="ece0ffd236a9cbb836dc"
                 p:clientSecret="a1e77aa21e54a2b2e29caa0ba65d4dbb97e6589c"/>
+
+    <beans:bean name="linkedinSource" class="ru.javawebinar.topjava.web.oauth.OauthSource"
+                p:accessTokenUrl="https://www.linkedin.com/oauth/v2/accessToken"
+                p:authorizeUrl="https://www.linkedin.com/oauth/v2/authorization"
+                p:mailUrl="https://api.github.com/user/emails"
+                p:loginUrl="https://api.linkedin.com/v1/people/~:(firstName,lastName,email-address)"
+                p:state="calory_linkedin_csrf_token_auth"
+                p:redirectUri="http://localhost:8080/topjava/oauth/linkedin/callback"
+                p:clientId="863ymlc9kzqgic"
+                p:clientSecret="fQFmDsmjBv1XBd9m"/>
 
     <beans:bean class="ru.javawebinar.topjava.util.PasswordUtil" id="passwordEncoder" factory-method="getPasswordEncoder"/>
 

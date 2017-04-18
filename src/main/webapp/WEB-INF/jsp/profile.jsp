@@ -23,7 +23,7 @@
                     <topjava:inputField label='${userName}' name="name"/>
 
                     <spring:message code="users.email" var="userEmail"/>
-                    <topjava:inputField label='${userEmail}' name="email"/>
+                    <topjava:inputField label='${userEmail}' name="email"  isSocial="${social}"/>
 
                     <spring:message code="users.password" var="userPassword"/>
                     <topjava:inputField label='${userPassword}' name="password" inputType="password"/>

@@ -13,10 +13,6 @@
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <form:form class="navbar-form" role="form" action="spring_security_check" method="post">
-                        <a href="oauth/github/authorize" role="button" class="btn btn-social btn-github">
-                            <span class="fa fa-github"></span>
-                            GitHub
-                        </a>
                         <div class="form-group">
                             <input type="text" placeholder="Email" class="form-control" name="username">
                         </div>
@@ -54,6 +50,17 @@
             </button>
             <button type="submit" class="btn btn-lg btn-primary" onclick="setCredentials('admin@gmail.com', 'admin')">
                 <spring:message code="app.enter"/> Admin
+            </button>
+        <p><spring:message code="app.oauth"/>
+            <button type="button" class="btn btn-social btn-github"
+                    onclick="window.location.href='oauth/github/authorize'">
+                <span class="fa fa-github"></span>
+                GitHub
+            </button>
+            <button type="button" class="btn btn-social btn-linkedin"
+                    onclick="window.location.href='oauth/linkedin/authorize'">
+                <span class="fa fa-linkedin"></span>
+                LinkedIn
             </button>
         </p>
         <br/>
