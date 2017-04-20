@@ -62,6 +62,11 @@
                 <span class="fa fa-linkedin"></span>
                 LinkedIn
             </button>
+            <button type="button" class="btn btn-social btn-facebook"
+                    onclick="window.location.href='oauth/facebook/authorize'">
+                <span class="fa fa-facebook"></span>
+                Facebook
+            </button>
         </p>
         <br/>
         <p><spring:message code="app.technology"/>: <a href="http://projects.spring.io/spring-security/">Spring Security</a>,
@@ -88,7 +93,8 @@
 </div>
 <div class="container">
     <div class="lead">
-        &nbsp;&nbsp;&nbsp;<a href="https://github.com/JavaOPs/topjava/blob/master/description.md">Java Enterprise</a> <spring:message code="app.text"/>
+        &nbsp;&nbsp;&nbsp;<a href="https://github.com/JavaOPs/topjava/blob/master/description.md">Java Enterprise</a>
+        <spring:message code="app.text"/>
     </div>
 </div>
 <jsp:include page="fragments/footer.jsp"/>

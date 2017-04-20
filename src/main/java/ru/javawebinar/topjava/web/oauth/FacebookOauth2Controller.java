@@ -15,14 +15,14 @@ import org.springframework.web.util.UriComponentsBuilder;
 import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 
 @Controller
-@RequestMapping("/oauth/github")
-public class GithubOauth2Controller extends AbstractOauth2Controller {
+@RequestMapping("/oauth/facebook")
+public class FacebookOauth2Controller extends AbstractOauth2Controller {
 
     private final AuthorizationCodeResourceDetails resourceDetails;
 
     @Autowired
-    public GithubOauth2Controller(@Qualifier("githubResourceDetails") AuthorizationCodeResourceDetails resourceDetails) {
-        redirectUri = "http://localhost:8080/topjava/oauth/github/callback";
+    public FacebookOauth2Controller(@Qualifier("facebookResourceDetails") AuthorizationCodeResourceDetails resourceDetails) {
+        redirectUri = "http://localhost:8080/topjava/oauth/facebook/callback";
         this.resourceDetails = resourceDetails;
     }
 
@@ -33,6 +33,7 @@ public class GithubOauth2Controller extends AbstractOauth2Controller {
                 .queryParam("client_id", resourceDetails.getClientId())
                 .queryParam("redirect_uri", redirectUri)
                 .queryParam("state", resourceDetails.getTokenName())
+                .queryParam("scope", resourceDetails.getScope().get(0))
                 .toUriString();
         return "redirect:" + s;
     }
@@ -40,10 +41,10 @@ public class GithubOauth2Controller extends AbstractOauth2Controller {
     @RequestMapping("/callback")
     public ModelAndView authenticate(@RequestParam String code, @RequestParam String state, RedirectAttributes attr) {
         if (resourceDetails.getTokenName().equals(state)) {
-            UriComponentsBuilder builder = fromHttpUrl("https://api.github.com/user")
+            UriComponentsBuilder builder = fromHttpUrl("https://graph.facebook.com/me?fields=name,email")
                     .queryParam("access_token", getAccessToken(code, resourceDetails));
             ResponseEntity<JsonNode> entityUser = template.getForEntity(builder.build().encode().toUri(), JsonNode.class);
-            String login = entityUser.getBody().get("login").asText();
+            String login = entityUser.getBody().get("name").asText();
             String email = entityUser.getBody().get("email").asText();
             return authorizeAndRedirect(login, email, attr);
         }

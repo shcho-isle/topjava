@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 import ru.javawebinar.topjava.UserTestData;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
@@ -23,7 +23,7 @@ import static ru.javawebinar.topjava.UserTestData.USER;
  * 13.03.2015.
  */
 @ContextConfiguration({"classpath:spring/spring-app.xml", "classpath:spring/mock.xml"})
-@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
 public class InMemoryAdminRestControllerSpringTest {
 
     @Autowired

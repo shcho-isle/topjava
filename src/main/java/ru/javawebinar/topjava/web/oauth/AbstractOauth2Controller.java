@@ -7,6 +7,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -24,23 +25,15 @@ public abstract class AbstractOauth2Controller {
     @Autowired
     protected UserDetailsService service;
 
-    protected String getAuthorizedUrl(OauthSource source) {
-        String s = fromHttpUrl(source.getAuthorizeUrl())
-                .queryParam("response_type", "code")
-                .queryParam("client_id", source.getClientId())
-                .queryParam("redirect_uri", source.getRedirectUri())
-                .queryParam("state", source.getState())
-                .toUriString();
-        return "redirect:" + s;
-    }
+    protected String redirectUri;
 
-    protected String getAccessToken(String code, OauthSource source) {
-        UriComponentsBuilder builder = fromHttpUrl(source.getAccessTokenUrl())
+    protected String getAccessToken(String code, AuthorizationCodeResourceDetails resourceDetails) {
+        UriComponentsBuilder builder = fromHttpUrl(resourceDetails.getAccessTokenUri())
                 .queryParam("grant_type", "authorization_code")
                 .queryParam("code", code)
-                .queryParam("redirect_uri", source.getRedirectUri())
-                .queryParam("client_id", source.getClientId())
-                .queryParam("client_secret", source.getClientSecret());
+                .queryParam("redirect_uri", redirectUri)
+                .queryParam("client_id", resourceDetails.getClientId())
+                .queryParam("client_secret", resourceDetails.getClientSecret());
         ResponseEntity<JsonNode> tokenEntity = template.postForEntity(builder.build().encode().toUri(), null, JsonNode.class);
         return tokenEntity.getBody().get("access_token").asText();
     }

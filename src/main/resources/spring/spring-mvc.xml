@@ -46,6 +46,34 @@
         <property name="messageConverters" ref="converter"/>
     </bean>
 
+    <bean name="githubResourceDetails" class="org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails"
+          p:id="github"
+          p:clientId="ece0ffd236a9cbb836dc"
+          p:clientSecret="a1e77aa21e54a2b2e29caa0ba65d4dbb97e6589c"
+          p:accessTokenUri="https://github.com/login/oauth/access_token"
+          p:userAuthorizationUri="https://github.com/login/oauth/authorize"
+          p:tokenName="github_oauth2_token"
+    />
+
+    <bean name="linkedinResourceDetails" class="org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails"
+          p:id="linkedin"
+          p:clientId="863ymlc9kzqgic"
+          p:clientSecret="fQFmDsmjBv1XBd9m"
+          p:accessTokenUri="https://www.linkedin.com/oauth/v2/accessToken"
+          p:userAuthorizationUri="https://www.linkedin.com/oauth/v2/authorization"
+          p:tokenName="linkedin_oauth2_token"
+    />
+
+    <bean name="facebookResourceDetails" class="org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails"
+          p:id="facebook"
+          p:clientId="1090322274406910"
+          p:clientSecret="49062bdeeaaa5af484820118624e26a9"
+          p:accessTokenUri="https://graph.facebook.com/oauth/access_token"
+          p:userAuthorizationUri="https://www.facebook.com/dialog/oauth"
+          p:tokenName="facebook_oauth2_token"
+          p:scope="email"
+    />
+
     <context:component-scan base-package="ru.javawebinar.**.web"/>
 
     <!--  all resources inside folder src/main/webapp/resources are mapped so they can be referred to inside JSP files -->
