@@ -15,11 +15,11 @@ import org.springframework.web.util.UriComponentsBuilder;
 import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 
 @Controller
-@RequestMapping("/oauth/facebook")
-public class FacebookOauth2Controller extends AbstractOauth2Controller {
+@RequestMapping("/oauth/google")
+public class GoogleOauth2Controller extends AbstractOauth2Controller {
 
     @Autowired
-    public FacebookOauth2Controller(@Qualifier("facebookResourceDetails") AuthorizationCodeResourceDetails resourceDetails) {
+    public GoogleOauth2Controller(@Qualifier("googleResourceDetails") AuthorizationCodeResourceDetails resourceDetails) {
         super(resourceDetails);
     }
 
@@ -34,10 +34,10 @@ public class FacebookOauth2Controller extends AbstractOauth2Controller {
     @RequestMapping("/callback")
     public ModelAndView authenticate(@RequestParam String code, @RequestParam String state, RedirectAttributes attr) {
         if (resourceDetails.getTokenName().equals(state)) {
-            UriComponentsBuilder builder = fromHttpUrl("https://graph.facebook.com/me?fields=name,email")
+            UriComponentsBuilder builder = fromHttpUrl("https://www.googleapis.com/plus/v1/people/userId")
                     .queryParam("access_token", getAccessToken(code));
             ResponseEntity<JsonNode> entityUser = template.getForEntity(builder.build().encode().toUri(), JsonNode.class);
-            String login = entityUser.getBody().get("name").asText();
+            String login = entityUser.getBody().get("login").asText();
             String email = entityUser.getBody().get("email").asText();
             return authorizeAndRedirect(login, email, attr);
         }

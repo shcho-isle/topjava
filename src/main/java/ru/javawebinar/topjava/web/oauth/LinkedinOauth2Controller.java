@@ -18,30 +18,21 @@ import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 @RequestMapping("/oauth/linkedin")
 public class LinkedinOauth2Controller extends AbstractOauth2Controller {
 
-    private final AuthorizationCodeResourceDetails resourceDetails;
-
     @Autowired
     public LinkedinOauth2Controller(@Qualifier("linkedinResourceDetails") AuthorizationCodeResourceDetails resourceDetails) {
-        redirectUri = "http://localhost:8080/topjava/oauth/linkedin/callback";
-        this.resourceDetails = resourceDetails;
+        super(resourceDetails);
     }
 
     @RequestMapping("/authorize")
     public String authorize() {
-        String s = fromHttpUrl(resourceDetails.getUserAuthorizationUri())
-                .queryParam("response_type", "code")
-                .queryParam("client_id", resourceDetails.getClientId())
-                .queryParam("redirect_uri", redirectUri)
-                .queryParam("state", resourceDetails.getTokenName())
-                .toUriString();
-        return "redirect:" + s;
+        return "redirect:" + getAuthUriBuilder().toUriString();
     }
 
     @RequestMapping("/callback")
     public ModelAndView authenticate(@RequestParam String code, @RequestParam String state, RedirectAttributes attr) {
         if (resourceDetails.getTokenName().equals(state)) {
             UriComponentsBuilder builder = fromHttpUrl("https://api.linkedin.com/v1/people/~:(firstName,lastName,email-address)")
-                    .queryParam("oauth2_access_token", getAccessToken(code, resourceDetails))
+                    .queryParam("oauth2_access_token", getAccessToken(code))
                     .queryParam("format", "json");
             ResponseEntity<JsonNode> entityUser = template.getForEntity(builder.build().encode().toUri(), JsonNode.class);
             String firstName = entityUser.getBody().get("firstName").asText();

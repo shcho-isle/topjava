@@ -18,30 +18,21 @@ import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 @RequestMapping("/oauth/github")
 public class GithubOauth2Controller extends AbstractOauth2Controller {
 
-    private final AuthorizationCodeResourceDetails resourceDetails;
-
     @Autowired
     public GithubOauth2Controller(@Qualifier("githubResourceDetails") AuthorizationCodeResourceDetails resourceDetails) {
-        redirectUri = "http://localhost:8080/topjava/oauth/github/callback";
-        this.resourceDetails = resourceDetails;
+        super(resourceDetails);
     }
 
     @RequestMapping("/authorize")
     public String authorize() {
-        String s = fromHttpUrl(resourceDetails.getUserAuthorizationUri())
-                .queryParam("response_type", "code")
-                .queryParam("client_id", resourceDetails.getClientId())
-                .queryParam("redirect_uri", redirectUri)
-                .queryParam("state", resourceDetails.getTokenName())
-                .toUriString();
-        return "redirect:" + s;
+        return "redirect:" + getAuthUriBuilder().toUriString();
     }
 
     @RequestMapping("/callback")
     public ModelAndView authenticate(@RequestParam String code, @RequestParam String state, RedirectAttributes attr) {
         if (resourceDetails.getTokenName().equals(state)) {
             UriComponentsBuilder builder = fromHttpUrl("https://api.github.com/user")
-                    .queryParam("access_token", getAccessToken(code, resourceDetails));
+                    .queryParam("access_token", getAccessToken(code));
             ResponseEntity<JsonNode> entityUser = template.getForEntity(builder.build().encode().toUri(), JsonNode.class);
             String login = entityUser.getBody().get("login").asText();
             String email = entityUser.getBody().get("email").asText();
