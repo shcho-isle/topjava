@@ -63,7 +63,6 @@
           p:accessTokenUri="https://www.linkedin.com/oauth/v2/accessToken"
           p:userAuthorizationUri="https://www.linkedin.com/oauth/v2/authorization"
           p:tokenName="linkedin_oauth2_token"
-          p:grantType="authorization_code"
     />
 
     <bean name="facebookResourceDetails" class="org.springframework.security.oauth2.client.token.grant.code.AuthorizationCodeResourceDetails"
@@ -117,7 +116,7 @@
     </bean>
 
     <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
-        <property name="defaultLocale" value="uk"/>
+        <property name="defaultLocale" value="en"/>
         <property name="cookieName" value="cookieLocale"/>
     </bean>
 

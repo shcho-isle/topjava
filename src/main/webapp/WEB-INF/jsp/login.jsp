@@ -44,7 +44,7 @@
         </c:if>
         <br/>
         <p>
-            <a class="btn btn-lg btn-success" href="register"><spring:message code="app.register"/> &raquo;</a>
+            <a class="btn btn-lg btn-success" href="register"><spring:message code="app.register_btn"/> &raquo;</a>
             <button type="submit" class="btn btn-lg btn-primary" onclick="setCredentials('user@yandex.ru', 'password')">
                 <spring:message code="app.enter"/> User
             </button>
@@ -52,20 +52,21 @@
                 <spring:message code="app.enter"/> Admin
             </button>
         <p><spring:message code="app.oauth"/>
-            <button type="button" class="btn btn-social btn-github"
+            <button type="button" class="btn btn-social-icon btn-github btn-sm"
                     onclick="window.location.href='oauth/github/authorize'">
                 <span class="fa fa-github"></span>
-                GitHub
             </button>
-            <button type="button" class="btn btn-social btn-linkedin"
+            <button type="button" class="btn btn-social-icon btn-linkedin btn-sm"
                     onclick="window.location.href='oauth/linkedin/authorize'">
                 <span class="fa fa-linkedin"></span>
-                LinkedIn
             </button>
-            <button type="button" class="btn btn-social btn-facebook"
+            <button type="button" class="btn btn-social-icon btn-facebook btn-sm"
                     onclick="window.location.href='oauth/facebook/authorize'">
                 <span class="fa fa-facebook"></span>
-                Facebook
+            </button>
+            <button type="button" class="btn btn-social-icon btn-google btn-sm"
+                    onclick="window.location.href='oauth/google/authorize'">
+                <span class="fa fa-google"></span>
             </button>
         </p>
         <br/>

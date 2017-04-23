@@ -64,7 +64,7 @@ public class RootController extends AbstractUserController {
     public String register(ModelMap model) {
         boolean social = model.containsAttribute("userTo");
         if (!social) {
-            model.addAttribute("userTo", new UserTo());
+            model.addAttribute("userTo", new UserTo("New user", null));
         }
         model.addAttribute("social", social);
         model.addAttribute("register", true);
