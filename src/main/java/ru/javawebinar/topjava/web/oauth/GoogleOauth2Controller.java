@@ -34,10 +34,10 @@ public class GoogleOauth2Controller extends AbstractOauth2Controller {
     @RequestMapping("/callback")
     public ModelAndView authenticate(@RequestParam String code, @RequestParam String state, RedirectAttributes attr) {
         if (resourceDetails.getTokenName().equals(state)) {
-            UriComponentsBuilder builder = fromHttpUrl("https://www.googleapis.com/plus/v1/people/userId")
+            UriComponentsBuilder builder = fromHttpUrl("https://www.googleapis.com/userinfo/v2/me")
                     .queryParam("access_token", getAccessToken(code));
             ResponseEntity<JsonNode> entityUser = template.getForEntity(builder.build().encode().toUri(), JsonNode.class);
-            String login = entityUser.getBody().get("login").asText();
+            String login = entityUser.getBody().get("name").asText();
             String email = entityUser.getBody().get("email").asText();
             return authorizeAndRedirect(login, email, attr);
         }

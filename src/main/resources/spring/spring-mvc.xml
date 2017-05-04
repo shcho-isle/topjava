@@ -79,10 +79,10 @@
           p:id="google"
           p:clientId="${google.client_id}"
           p:clientSecret="#{systemEnvironment['GOOGLE_SECRET']}"
-          p:accessTokenUri="https://accounts.google.com/o/oauth2/token"
-          p:userAuthorizationUri="https://accounts.google.com/o/oauth2/auth"
+          p:accessTokenUri="https://www.googleapis.com/oauth2/v4/token"
+          p:userAuthorizationUri="https://accounts.google.com/o/oauth2/v2/auth"
           p:tokenName="google_oauth2_token"
-          p:scope="profile"
+          p:scope="https://www.googleapis.com/auth/userinfo.email"
     />
 
     <context:component-scan base-package="ru.javawebinar.**.web"/>
