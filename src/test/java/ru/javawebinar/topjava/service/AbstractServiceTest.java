@@ -9,6 +9,7 @@ import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.ActiveProfiles;
@@ -52,6 +53,11 @@ abstract public class AbstractServiceTest {
             LOG.info(result + " ms\n");
         }
     };
+
+    static {
+        // needed only for java.util.logging (postgres driver)
+        SLF4JBridgeHandler.install();
+    }
 
     @AfterClass
     public static void printResult() {

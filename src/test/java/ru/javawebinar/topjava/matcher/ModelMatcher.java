@@ -15,40 +15,41 @@ import java.util.stream.Collectors;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 /**
- * GKislin
- * 06.01.2015.
- *
- * This class wrap every entity by Wrapper before assertEquals in order to compare them by comparator
- * Default comparator compare by String.valueOf(entity)
+ * This test Matcher assert equality of beans and collections
+ * <p>
+ * It wraps every entity by Wrapper before apply to Assert.assertEquals
+ * and every element of collection before call Collection equals
+ * in order to compare them by custom Equality.
+ * <p>
+ * Default equality is String.valueOf(entity)
  *
  * @param <T> : Entity
  */
 public class ModelMatcher<T> {
-    private static final Comparator DEFAULT_COMPARATOR =
-            (Object expected, Object actual) -> expected == actual || String.valueOf(expected).equals(String.valueOf(actual));
 
-    private final Comparator<T> comparator;
+    private Equality<T> equality;
+
+    public interface Equality<T> {
+        boolean areEqual(T expected, T actual);
+    }
+
     private final Class<T> entityClass;
 
-    public interface Comparator<T> {
-        boolean compare(T expected, T actual);
-    }
-
     private ModelMatcher(Class<T> entityClass) {
-        this(entityClass, (Comparator<T>) DEFAULT_COMPARATOR);
+        this(entityClass, (T expected, T actual) -> expected == actual || String.valueOf(expected).equals(String.valueOf(actual)));
     }
 
-    private ModelMatcher(Class<T> entityClass, Comparator<T> comparator) {
+    private ModelMatcher(Class<T> entityClass, Equality<T> equality) {
         this.entityClass = entityClass;
-        this.comparator = comparator;
+        this.equality = equality;
     }
 
     public static <T> ModelMatcher<T> of(Class<T> entityClass) {
         return new ModelMatcher<>(entityClass);
     }
 
-    public static <T> ModelMatcher<T> of(Class<T> entityClass, Comparator<T> comparator) {
-        return new ModelMatcher<>(entityClass, comparator);
+    public static <T> ModelMatcher<T> of(Class<T> entityClass, Equality<T> equality) {
+        return new ModelMatcher<>(entityClass, equality);
     }
 
     private class Wrapper {
@@ -63,7 +64,7 @@ public class ModelMatcher<T> {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Wrapper that = (Wrapper) o;
-            return entity != null ? comparator.compare(entity, that.entity) : that.entity == null;
+            return entity != null ? equality.areEqual(entity, that.entity) : that.entity == null;
         }
 
         @Override

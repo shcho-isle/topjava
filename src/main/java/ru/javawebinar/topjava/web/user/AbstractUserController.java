@@ -25,10 +25,13 @@ public abstract class AbstractUserController {
     @Autowired
     private MessageSource messageSource;
 
-    @Autowired
-    private UserService service;
+    private final UserService service;
 
     private boolean systemUserForbiddenModification;
+
+    public AbstractUserController(UserService service) {
+        this.service = service;
+    }
 
     @Autowired
     public void setEnvironment(Environment environment) {
@@ -47,44 +50,44 @@ public abstract class AbstractUserController {
     }
 
     public User get(int id) {
-        log.info("get " + id);
+        log.info("get {}", id);
         return service.get(id);
     }
 
     public User create(User user) {
         checkNew(user);
-        log.info("create " + user);
+        log.info("create {}", user);
         return service.save(user);
     }
 
     public void delete(int id) {
-        log.info("delete " + id);
+        log.info("delete {}", id);
         checkModificationAllowed(id);
         service.delete(id);
     }
 
     public void update(User user, int id) {
-        log.info("update " + user);
+        log.info("update {}", user);
         checkIdConsistent(user, id);
         checkModificationAllowed(id);
         service.update(user);
     }
 
     public void update(UserTo userTo, int id) {
-        log.info("update " + userTo);
+        log.info("update {}", userTo);
         checkIdConsistent(userTo, id);
         checkModificationAllowed(userTo.getId());
         service.update(userTo);
     }
 
     public User getByMail(String email) {
-        log.info("getByEmail " + email);
+        log.info("getByEmail {}", email);
         return service.getByEmail(email);
     }
 
     public void enable(int id, boolean enabled) {
         checkModificationAllowed(id);
-        log.info((enabled ? "enable " : "disable ") + id);
+        log.info((enabled ? "enable {}" : "disable {}"), id);
         service.enable(id, enabled);
     }
 }

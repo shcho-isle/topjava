@@ -12,9 +12,14 @@ before_script:
   - psql -c 'create database topjava' -U postgres
   - psql -c 'create user "user"; grant all privileges on database topjava to "user"' -U postgres
 
+# https://docs.travis-ci.com/user/customizing-the-build#Building-Specific-Branches
+branches:
+  only:
+  - master
+
 # https://docs.travis-ci.com/user/notifications#Configuring-email-notifications
-notifications:
-  email: false
+#notifications:
+#  email: false
 
 # https://docs.travis-ci.com/user/environment-variables/
 env:

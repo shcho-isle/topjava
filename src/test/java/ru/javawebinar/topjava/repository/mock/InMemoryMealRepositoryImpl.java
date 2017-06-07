@@ -14,14 +14,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-/**
- * GKislin
- * 15.09.2015.
- */
 @Repository
 public class InMemoryMealRepositoryImpl implements MealRepository {
-
-    private static final Comparator<Meal> MEAL_COMPARATOR = Comparator.comparing(Meal::getDateTime).reversed();
 
     // Map  userId -> (mealId-> meal)
     private final Map<Integer, Map<Integer, Meal>> repository = new ConcurrentHashMap<>();
@@ -66,7 +60,7 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     private Stream<Meal> getAllAsStream(int userId) {
         Map<Integer, Meal> meals = repository.get(userId);
         return meals == null ?
-                Stream.empty() : meals.values().stream().sorted(MEAL_COMPARATOR);
+                Stream.empty() : meals.values().stream().sorted(Comparator.comparing(Meal::getDateTime).reversed());
     }
 }
 
