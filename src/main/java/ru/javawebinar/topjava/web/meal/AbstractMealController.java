@@ -17,10 +17,6 @@ import java.util.List;
 import static ru.javawebinar.topjava.util.ValidationUtil.checkIdConsistent;
 import static ru.javawebinar.topjava.util.ValidationUtil.checkNew;
 
-/**
- * GKislin
- * 06.03.2015.
- */
 public abstract class AbstractMealController {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractMealController.class);
 
@@ -59,6 +55,12 @@ public abstract class AbstractMealController {
         return service.save(meal, userId);
     }
 
+    /**
+     * <ol>Filter separately
+     *   <li>by date</li>
+     *   <li>by time for every date</li>
+     * </ol>
+     */
     public List<MealWithExceed> getBetween(LocalDate startDate, LocalTime startTime, LocalDate endDate, LocalTime endTime) {
         int userId = AuthorizedUser.id();
         LOG.info("getBetween dates {} - {} for time {} - {} for User {}", startDate, endDate, startTime, endTime, userId);

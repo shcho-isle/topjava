@@ -29,11 +29,11 @@ public class ModelMatcher<T> {
 
     private Equality<T> equality;
 
+    private final Class<T> entityClass;
+
     public interface Equality<T> {
         boolean areEqual(T expected, T actual);
     }
-
-    private final Class<T> entityClass;
 
     private ModelMatcher(Class<T> entityClass) {
         this(entityClass, (T expected, T actual) -> expected == actual || String.valueOf(expected).equals(String.valueOf(actual)));
