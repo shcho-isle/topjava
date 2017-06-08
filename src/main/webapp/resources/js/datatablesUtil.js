@@ -9,7 +9,7 @@ function closeNoty() {
     }
 }
 
-function failNoty(event, jqXHR, options, jsExc) {
+function failNoty(jqXHR) {
     closeNoty();
     var errorInfo = $.parseJSON(jqXHR.responseText);
 
@@ -26,8 +26,10 @@ function failNoty(event, jqXHR, options, jsExc) {
 function makeEditable() {
     form = $("#detailsForm");
     $(document).ajaxError(function (event, jqXHR, options, jsExc) {
-        failNoty(event, jqXHR, options, jsExc);
+        failNoty(jqXHR);
     });
+    // solve problem with cache in IE: https://stackoverflow.com/a/4303862/548473
+    $.ajaxSetup({ cache: false });
 
     var token = $("meta[name='_csrf']").attr("content");
     var header = $("meta[name='_csrf_header']").attr("content");
