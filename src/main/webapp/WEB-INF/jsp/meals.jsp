@@ -59,8 +59,9 @@
                 </div>
             </div>
         </div>
-        <a class="btn btn-info" onclick="add('<spring:message code="meals.add"/>')">
+        <a class="btn btn-primary" onclick="add('<spring:message code="meals.add"/>')">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <spring:message code="common.add"/>
         </a>
         <table class="table table-striped display" id="datatable">
             <thead>
@@ -75,8 +76,6 @@
         </table>
     </div>
 </div>
-<jsp:include page="/WEB-INF/jsp/fragments/footer.jsp"/>
-
 <div class="modal fade" id="editRow">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -126,5 +125,7 @@
         </div>
     </div>
 </div>
+<jsp:include page="fragments/footer.jsp"/>
 </body>
+<jsp:include page="fragments/i18n.jsp"/>
 </html>
