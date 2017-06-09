@@ -67,14 +67,14 @@ public abstract class AbstractUserController {
     }
 
     public void update(User user, int id) {
-        log.info("update {}", user);
+        log.info("update {} with id={}", user, id);
         checkIdConsistent(user, id);
         checkModificationAllowed(id);
         service.update(user);
     }
 
     public void update(UserTo userTo, int id) {
-        log.info("update {}", userTo);
+        log.info("update {} with id={}", userTo, id);
         checkIdConsistent(userTo, id);
         checkModificationAllowed(userTo.getId());
         service.update(userTo);

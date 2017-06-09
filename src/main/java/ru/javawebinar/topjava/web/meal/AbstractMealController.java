@@ -42,16 +42,16 @@ public abstract class AbstractMealController {
     }
 
     public void update(Meal meal, int id) {
-        checkIdConsistent(meal, id);
         int userId = AuthorizedUser.id();
         LOG.info("update {} for User {}", meal, userId);
+        checkIdConsistent(meal, id);
         service.update(meal, userId);
     }
 
     public Meal create(Meal meal) {
-        checkNew(meal);
         int userId = AuthorizedUser.id();
         LOG.info("create {} for User {}", meal, userId);
+        checkNew(meal);
         return service.save(meal, userId);
     }
 
