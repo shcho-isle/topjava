@@ -12,29 +12,26 @@
 
 <div class="jumbotron">
     <div class="container">
-        <div class="shadow">
-            <h3><spring:message code="users.title"/></h3>
+        <h3><spring:message code="users.title"/></h3>
 
-            <div class="view-box">
-                <a class="btn btn-info" onclick="add('<spring:message code="users.add"/>')">
-                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                </a>
+        <a class="btn btn-primary" onclick="add('<spring:message code="users.add"/>')">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <spring:message code="common.add"/>
+        </a>
 
-                <table class="table table-striped display" id="datatable">
-                    <thead>
-                    <tr>
-                        <th><spring:message code="users.name"/></th>
-                        <th><spring:message code="users.email"/></th>
-                        <th><spring:message code="users.roles"/></th>
-                        <th><spring:message code="users.active"/></th>
-                        <th><spring:message code="users.registered"/></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                </table>
-            </div>
-        </div>
+        <table class="table table-striped display" id="datatable">
+            <thead>
+            <tr>
+                <th><spring:message code="users.name"/></th>
+                <th><spring:message code="users.email"/></th>
+                <th><spring:message code="users.roles"/></th>
+                <th><spring:message code="users.active"/></th>
+                <th><spring:message code="users.registered"/></th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+        </table>
     </div>
 </div>
 <jsp:include page="fragments/footer.jsp"/>
@@ -70,7 +67,8 @@
                         <label for="password" class="control-label col-xs-3"><spring:message code="users.password"/></label>
 
                         <div class="col-xs-9">
-                            <input type="password" class="form-control" id="password" name="password" placeholder="<spring:message code="users.password"/>">
+                            <input type="password" class="form-control" id="password" name="password"
+                                   placeholder="<spring:message code="users.password"/>">
                         </div>
                     </div>
 
