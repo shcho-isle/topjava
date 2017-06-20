@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.hibernate5.Hibernate5Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import ru.javawebinar.topjava.View;
 
 /**
  * <p>
@@ -34,8 +33,5 @@ public final class JacksonObjectMapper extends ObjectMapper {
         setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.NONE);
         setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
         setSerializationInclusion(JsonInclude.Include.NON_NULL);
-
-//      https://stackoverflow.com/questions/22875642/jackson-set-default-view
-        setConfig(getSerializationConfig().withView(View.JsonREST.class));
     }
 }
