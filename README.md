@@ -5,25 +5,11 @@
 
 The diary of calories eaten allows you to set the daily calorie limit and monitor its exceeding.
 
-## Code Example
-```java
-public class JpaUtil {
+## Deployed application
+http://plynko.herokuapp.com
 
-    @PersistenceContext
-    private EntityManager em;
-
-    public void clear2ndLevelHibernateCache() {
-        Session s = (Session) em.getDelegate();
-        SessionFactory sf = s.getSessionFactory();
-        sf.getCache().evictAllRegions();
-    }
-}
-```
-    
 ## Launching
 - DB configuration: `src/main/resources/db/postgres.properties`
 - Script to create tables: `src/main/resources/db/initDB.sql`
-- Specify path for log in TOPJAVA_ROOT enviroment variable
+- Specify path to logs in TOPJAVA_ROOT environment variable
 
-## Deployed project
-http://plynko.herokuapp.com
