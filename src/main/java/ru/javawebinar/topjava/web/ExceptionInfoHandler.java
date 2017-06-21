@@ -31,7 +31,7 @@ import java.util.Optional;
 @ControllerAdvice(annotations = RestController.class)
 @Order(Ordered.HIGHEST_PRECEDENCE + 5)
 public class ExceptionInfoHandler {
-    private static final Logger LOG = LoggerFactory.getLogger(ExceptionInfoHandler.class);
+    private static Logger log = LoggerFactory.getLogger(ExceptionInfoHandler.class);
 
     private static final Map<String, String> CONSTRAINT_CODE_MAP = new HashMap<String, String>() {
         {
@@ -100,15 +100,15 @@ public class ExceptionInfoHandler {
                 .map(fe -> fe.getField() + ' ' + fe.getDefaultMessage())
                 .toArray(String[]::new);
 
-        LOG.warn("Validation exception at request " + req.getRequestURL() + ": " + Arrays.toString(details));
+        log.warn("Validation exception at request " + req.getRequestURL() + ": " + Arrays.toString(details));
         return new ErrorInfo(req.getRequestURL(), "ValidationException", details);
     }
 
     private static ErrorInfo logAndGetErrorInfo(HttpServletRequest req, Exception e, boolean logException) {
         if (logException) {
-            LOG.error("Exception at request " + req.getRequestURL(), e);
+            log.error("Exception at request " + req.getRequestURL(), e);
         } else {
-            LOG.warn("Exception at request " + req.getRequestURL() + ": " + e.toString());
+            log.warn("Exception at request " + req.getRequestURL() + ": " + e.toString());
         }
         return new ErrorInfo(req.getRequestURL(), e);
     }

@@ -34,14 +34,13 @@ public class User extends NamedEntity {
     @Column(name = "email", nullable = false, unique = true)
     @Email
     @NotBlank
-    @SafeHtml
+    @SafeHtml  // https://stackoverflow.com/questions/17480809
     private String email;
 
     @Column(name = "password", nullable = false)
     @NotBlank
     @Length(min = 5)
     @JsonView(View.REST.class)
-    @SafeHtml
     private String password;
 
     @Column(name = "enabled", nullable = false, columnDefinition = "bool default true")
