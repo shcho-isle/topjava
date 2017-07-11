@@ -49,3 +49,7 @@
 .glyphicon {
     cursor: pointer;
 }
+
+.rightimg  {
+    float: right;
+}
