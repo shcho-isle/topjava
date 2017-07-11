@@ -96,7 +96,7 @@
 
 <div class="container">
     <div class="lead">
-        <img src="resources/images/plate.jpg" class="rightimg">
+        <img src="http://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/articles/health_tools/portion_sizes_slideshow/webmd_photo_of_healthy_portions_on_plate.jpg" class="rightimg">
         &nbsp;&nbsp;&nbsp;<a href="https://github.com/JavaOPs/topjava/blob/master/description.md">Java Enterprise</a>
         <spring:message code="app.text"/>
     </div>
