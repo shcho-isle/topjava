@@ -1,6 +1,6 @@
 package ru.javawebinar.topjava.matcher;
 
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.ResultMatcher;
 import ru.javawebinar.topjava.TestUtil;
@@ -86,11 +86,11 @@ public class ModelMatcher<T> {
     }
 
     public void assertEquals(T expected, T actual) {
-        Assert.assertEquals(wrap(expected), wrap(actual));
+        Assertions.assertEquals(wrap(expected), wrap(actual));
     }
 
     public void assertCollectionEquals(Collection<T> expected, Collection<T> actual) {
-        Assert.assertEquals(wrap(expected), wrap(actual));
+        Assertions.assertEquals(wrap(expected), wrap(actual));
     }
 
     private Wrapper wrap(T entity) {

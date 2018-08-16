@@ -1,6 +1,6 @@
 package ru.javawebinar.topjava.web.meal;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
@@ -14,7 +14,7 @@ import ru.javawebinar.topjava.web.json.JsonUtil;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -33,7 +33,7 @@ public class MealRestControllerTest extends AbstractControllerTest {
     private MealService service;
 
     @Test
-    public void testGet() throws Exception {
+    void testGet() throws Exception {
         mockMvc.perform(get(REST_URL + ADMIN_MEAL_ID)
                 .with(userHttpBasic(ADMIN)))
                 .andExpect(status().isOk())
@@ -43,20 +43,20 @@ public class MealRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testGetUnauth() throws Exception {
+    void testGetUnauth() throws Exception {
         mockMvc.perform(get(REST_URL + MEAL1_ID))
                 .andExpect(status().isUnauthorized());
     }
 
     @Test
-    public void testGetNotFound() throws Exception {
+    void testGetNotFound() throws Exception {
         mockMvc.perform(get(REST_URL + ADMIN_MEAL_ID)
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isUnprocessableEntity());
     }
 
     @Test
-    public void testDeleteNotFound() throws Exception {
+    void testDeleteNotFound() throws Exception {
         mockMvc.perform(delete(REST_URL + ADMIN_MEAL_ID)
                 .with(userHttpBasic(USER)))
                 .andDo(print())
@@ -87,7 +87,7 @@ public class MealRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testUpdateInvalid() throws Exception {
+    void testUpdateInvalid() throws Exception {
         Meal invalid = new Meal(MEAL1_ID, null, null, 6000);
         mockMvc.perform(put(REST_URL + MEAL1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -98,7 +98,7 @@ public class MealRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testUpdateHtmlUnsafe() throws Exception {
+    void testUpdateHtmlUnsafe() throws Exception {
         Meal invalid = new Meal(MEAL1_ID, LocalDateTime.now(), "<script>alert(123)</script>", 200);
         mockMvc.perform(put(REST_URL + MEAL1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -125,7 +125,7 @@ public class MealRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testCreateInvalid() throws Exception {
+    void testCreateInvalid() throws Exception {
         Meal invalid = new Meal(null, null, "Dummy", 200);
         mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -136,7 +136,7 @@ public class MealRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testGetAll() throws Exception {
+    void testGetAll() throws Exception {
         mockMvc.perform(get(REST_URL)
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isOk())
@@ -146,7 +146,7 @@ public class MealRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testFilter() throws Exception {
+    void testFilter() throws Exception {
         mockMvc.perform(get(REST_URL + "filter")
                 .param("startDate", "2015-05-30").param("startTime", "07:00")
                 .param("endDate", "2015-05-31").param("endTime", "11:00")
@@ -159,7 +159,7 @@ public class MealRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testFilterAll() throws Exception {
+    void testFilterAll() throws Exception {
         mockMvc.perform(get(REST_URL + "filter?startDate=&endTime=")
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isOk())
@@ -169,7 +169,7 @@ public class MealRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testUpdateDuplicate() throws Exception {
+    void testUpdateDuplicate() throws Exception {
         Meal invalid = new Meal(MEAL1_ID, MEAL2.getDateTime(), "Dummy", 200);
         mockMvc.perform(put(REST_URL + MEAL1_ID)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -180,7 +180,7 @@ public class MealRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testCreateDuplicate() throws Exception {
+    void testCreateDuplicate() throws Exception {
         Meal invalid = new Meal(null, ADMIN_MEAL1.getDateTime(), "Dummy", 200);
         mockMvc.perform(post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)

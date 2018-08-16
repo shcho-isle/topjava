@@ -1,6 +1,6 @@
 package ru.javawebinar.topjava.web.user;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.TestUtil;
@@ -23,7 +23,7 @@ import static ru.javawebinar.topjava.web.user.ProfileRestController.REST_URL;
 public class ProfileRestControllerTest extends AbstractControllerTest {
 
     @Test
-    public void testGet() throws Exception {
+    void testGet() throws Exception {
         TestUtil.print(mockMvc.perform(get(REST_URL)
                 .with(userHttpBasic(USER)))
                 .andExpect(status().isOk())
@@ -32,7 +32,7 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testGetUnauth() throws Exception {
+    void testGetUnauth() throws Exception {
         mockMvc.perform(get(REST_URL))
                 .andExpect(status().isUnauthorized());
     }
@@ -61,7 +61,7 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testUpdateInvalid() throws Exception {
+    void testUpdateInvalid() throws Exception {
         UserTo updatedTo = new UserTo(null, null, "password", null, 1500);
 
         mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
@@ -72,7 +72,7 @@ public class ProfileRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    public void testDuplicate() throws Exception {
+    void testDuplicate() throws Exception {
         UserTo updatedTo = new UserTo(null, "newName", "admin@gmail.com", "newPassword", 1500);
 
         mockMvc.perform(put(REST_URL).contentType(MediaType.APPLICATION_JSON)
